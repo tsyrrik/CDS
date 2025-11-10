@@ -1,0 +1,27 @@
+<svg width="41.142578" height="16.000000" viewBox="0 0 41.1426 16" fill="none" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+    <desc>
+        Created with Pixso.
+    </desc>
+    <defs>
+        <clipPath id="clip959_25048">
+            <rect id="mir" rx="0.000000" width="40.457146" height="11.314286" transform="translate(0.342299 2.342299)"
+                  fill="white" fill-opacity="0"/>
+        </clipPath>
+        <linearGradient x1="39.088448" y1="1.143192" x2="29.945591" y2="1.143192" id="paint_linear_959_25050_0"
+                        gradientUnits="userSpaceOnUse">
+            <stop stop-color="#1F5CD7"/>
+            <stop offset="1.000000" stop-color="#02AEFF"/>
+        </linearGradient>
+    </defs>
+    <rect id="mir" rx="0.000000" width="40.457146" height="11.314286" transform="translate(0.342299 2.342299)"
+          fill="#FFFFFF" fill-opacity="0"/>
+    <g clip-path="url(#clip959_25048)">
+        <path id="Vector"
+              d="M0.34 2.62L4.11 2.62C4.46 2.62 5.48 2.51 5.94 4.11C6.28 5.14 6.74 6.74 7.43 9.14L7.66 9.14C8.34 6.62 8.91 4.91 9.14 4.11C9.6 2.51 10.74 2.62 11.2 2.62L14.74 2.62L14.74 13.59L11.08 13.59L11.08 7.08L10.85 7.08L8.91 13.59L6.17 13.59L4.23 7.08L3.88 7.08L3.88 13.59L0.34 13.59L0.34 2.62ZM16.23 2.62L19.88 2.62L19.88 9.14L20.23 9.14L22.63 3.77C23.08 2.74 24.11 2.62 24.11 2.62L27.54 2.62L27.54 13.59L23.88 13.59L23.88 7.08L23.66 7.08L21.25 12.45C20.8 13.48 19.66 13.59 19.66 13.59L16.23 13.59L16.23 2.62ZM32.46 10.28L32.46 13.59L29.03 13.59L29.03 7.88L40.23 7.88C39.77 9.25 38.17 10.28 36.34 10.28L32.46 10.28Z"
+              fill="#0F754E" fill-opacity="1.000000" fill-rule="nonzero"/>
+        <path id="Vector"
+              d="M40.45 7.2C40.91 5.14 39.54 2.62 36.57 2.62L28.8 2.62C29.03 5.02 31.08 7.2 33.25 7.2L40.45 7.2Z"
+              fill="url(#paint_linear_959_25050_0)" fill-opacity="1.000000" fill-rule="nonzero"/>
+    </g>
+</svg>

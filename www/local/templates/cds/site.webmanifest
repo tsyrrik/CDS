@@ -1,0 +1,20 @@
+{
+  "name": "Фонд Дерзай",
+  "short_name": "Дерзай",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e55ad",
+  "icons": [
+    {
+      "src": "img/favicon/android-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/favicon/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ]
+}

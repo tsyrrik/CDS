@@ -1,0 +1,12 @@
+/.env
+/vendor/
+/node_modules/
+/logs/*
+!/logs/.gitkeep
+/www/bitrix/
+/www/bitrixsetup.php
+/www/bitrixsetup.php?*
+/www/upload/
+/www/.settings.php
+/www/dbconn.php
+/docker/php/.phpunit.result.cache

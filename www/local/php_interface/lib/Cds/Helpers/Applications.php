@@ -1,21 +1,23 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Cds\Helpers;
 
-use Bitrix\Main\Loader;
-use Bitrix\Main\Data\Cache;
 use Bitrix\Highloadblock\HighloadBlockTable;
-use CFile;
+use Bitrix\Main\Data\Cache;
+use Bitrix\Main\Loader;
 use Cds\Options;
+use CFile;
 
 class Applications
 {
-    private const TABLE_NAME = 'cds_applications';
-    private const CACHE_TTL = 600;
-    private const CACHE_DIR = '/cds/applications';
-
     public const STATUS_ACTIVE = 'ACTIVE';
     public const STATUS_HISTORY = 'HISTORY';
     public const STATUS_CLOSED = 'CLOSED';
+    private const TABLE_NAME = 'cds_applications';
+    private const CACHE_TTL = 600;
+    private const CACHE_DIR = '/cds/applications';
 
     public static function getMainList(int $limit = 10): array
     {
@@ -54,8 +56,9 @@ class Applications
         ]);
 
         $result = [];
+
         while ($row = $rows->fetch()) {
-            $row['UF_PHOTO_SRC'] = self::resolvePhoto((int)$row['UF_PHOTO']);
+            $row['UF_PHOTO_SRC'] = self::resolvePhoto((int) $row['UF_PHOTO']);
             $result[] = $row;
         }
 
@@ -68,7 +71,7 @@ class Applications
 
     public static function formatCurrency($value): string
     {
-        $value = (float)$value;
+        $value = (float) $value;
 
         return number_format($value, 0, '.', ' ') . ' ₽';
     }
@@ -107,7 +110,7 @@ class Applications
             $fileId,
             ['width' => 420, 'height' => 480],
             BX_RESIZE_IMAGE_PROPORTIONAL_ALT,
-            true
+            true,
         );
 
         if (!$file) {

@@ -1,10 +1,10 @@
 <?php
-use Cds\Helpers\IblockHelper;
 use Cds\Helpers\Applications;
+use Cds\Helpers\IblockHelper;
 use Cds\Options;
 
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
-    die();
+    exit;
 }
 
 $directionsIblockId = IblockHelper::getId('cds_directions');
@@ -53,7 +53,7 @@ $APPLICATION->IncludeComponent(
         'EDIT_TEMPLATE' => '',
     ],
     false,
-    ['HIDE_ICONS' => 'Y']
+    ['HIDE_ICONS' => 'Y'],
 );
 ?>
 
@@ -71,13 +71,13 @@ $APPLICATION->IncludeComponent(
                         'EDIT_TEMPLATE' => '',
                     ],
                     false,
-                    ['HIDE_ICONS' => 'Y']
+                    ['HIDE_ICONS' => 'Y'],
                 );
-                ?>
+?>
             </div>
-            <?php if ($directionsIblockId): ?>
+            <?php if ($directionsIblockId) { ?>
                 <?php
-                global $arDirectionsFilter;
+global $arDirectionsFilter;
                 $arDirectionsFilter = ['=PROPERTY_SHOW_ON_MAIN' => 'Y'];
 
                 $APPLICATION->IncludeComponent(
@@ -105,12 +105,12 @@ $APPLICATION->IncludeComponent(
                         'CHECK_DATES' => 'Y',
                     ],
                     false,
-                    ['HIDE_ICONS' => 'Y']
+                    ['HIDE_ICONS' => 'Y'],
                 );
                 ?>
-            <?php else: ?>
+            <?php } else { ?>
                 <div class="alert alert-warning">Создайте инфоблок «Наши направления».</div>
-            <?php endif; ?>
+            <?php } ?>
         </div>
     </div>
 </section>
@@ -129,9 +129,9 @@ $APPLICATION->IncludeComponent(
                         'EDIT_TEMPLATE' => '',
                     ],
                     false,
-                    ['HIDE_ICONS' => 'Y']
+                    ['HIDE_ICONS' => 'Y'],
                 );
-                ?>
+?>
             </div>
             <?php
             $APPLICATION->IncludeComponent(
@@ -143,47 +143,47 @@ $APPLICATION->IncludeComponent(
                     'EDIT_TEMPLATE' => '',
                 ],
                 false,
-                ['HIDE_ICONS' => 'Y']
+                ['HIDE_ICONS' => 'Y'],
             );
-            ?>
+?>
 
-            <?php if ($tasksIblockId): ?>
+            <?php if ($tasksIblockId) { ?>
                 <?php
-                $APPLICATION->IncludeComponent(
-                    'bitrix:news.list',
-                    'cds_tasks',
-                    [
-                        'IBLOCK_TYPE' => 'cds_content',
-                        'IBLOCK_ID' => $tasksIblockId,
-                        'NEWS_COUNT' => '20',
-                        'SORT_BY1' => 'SORT',
-                        'SORT_ORDER1' => 'ASC',
-                        'CACHE_TYPE' => 'A',
-                        'CACHE_TIME' => '3600',
-                        'CACHE_GROUPS' => 'Y',
-                        'FIELD_CODE' => ['NAME', 'PREVIEW_TEXT'],
-                        'PROPERTY_CODE' => ['ICON_SYMBOL'],
-                        'SET_TITLE' => 'N',
-                        'SET_BROWSER_TITLE' => 'N',
-                        'SET_META_KEYWORDS' => 'N',
-                        'SET_META_DESCRIPTION' => 'N',
-                    ],
-                    false,
-                    ['HIDE_ICONS' => 'Y']
-                );
+    $APPLICATION->IncludeComponent(
+        'bitrix:news.list',
+        'cds_tasks',
+        [
+            'IBLOCK_TYPE' => 'cds_content',
+            'IBLOCK_ID' => $tasksIblockId,
+            'NEWS_COUNT' => '20',
+            'SORT_BY1' => 'SORT',
+            'SORT_ORDER1' => 'ASC',
+            'CACHE_TYPE' => 'A',
+            'CACHE_TIME' => '3600',
+            'CACHE_GROUPS' => 'Y',
+            'FIELD_CODE' => ['NAME', 'PREVIEW_TEXT'],
+            'PROPERTY_CODE' => ['ICON_SYMBOL'],
+            'SET_TITLE' => 'N',
+            'SET_BROWSER_TITLE' => 'N',
+            'SET_META_KEYWORDS' => 'N',
+            'SET_META_DESCRIPTION' => 'N',
+        ],
+        false,
+        ['HIDE_ICONS' => 'Y'],
+    );
                 ?>
-            <?php else: ?>
+            <?php } else { ?>
                 <div class="alert alert-warning">Создайте инфоблок «Задачи фонда».</div>
-            <?php endif; ?>
+            <?php } ?>
 
             <div class="tasks-content-btn-box">
-                <a href="<?= htmlspecialcharsbx($tasksButtons['primary']['link'] ?: '#'); ?>"
+                <a href="<?php echo htmlspecialcharsbx($tasksButtons['primary']['link'] ?: '#'); ?>"
                    class="btn btn--bg-red_txt-w">
-                    <span class="text-btn"><?= htmlspecialcharsbx($tasksButtons['primary']['text']); ?></span>
+                    <span class="text-btn"><?php echo htmlspecialcharsbx($tasksButtons['primary']['text']); ?></span>
                 </a>
-                <a href="<?= htmlspecialcharsbx($tasksButtons['secondary']['link'] ?: '#'); ?>"
+                <a href="<?php echo htmlspecialcharsbx($tasksButtons['secondary']['link'] ?: '#'); ?>"
                    class="btn btn--bg-w_txt-bl_brd-bl btn-sc-hidden">
-                    <span class="text-btn"><?= htmlspecialcharsbx($tasksButtons['secondary']['text']); ?></span>
+                    <span class="text-btn"><?php echo htmlspecialcharsbx($tasksButtons['secondary']['text']); ?></span>
                 </a>
             </div>
         </div>
@@ -204,83 +204,83 @@ $APPLICATION->IncludeComponent(
                         'EDIT_TEMPLATE' => '',
                     ],
                     false,
-                    ['HIDE_ICONS' => 'Y']
+                    ['HIDE_ICONS' => 'Y'],
                 );
-                ?>
-                <?php if ($applications): ?>
+?>
+                <?php if ($applications) { ?>
                     <div class="w-full slider-wrap">
                         <div class="swiper j-main-applications__slider">
                             <div class="swiper-wrapper applications__slides">
-                                <?php foreach ($applications as $application): ?>
+                                <?php foreach ($applications as $application) { ?>
                                     <?php
-                                    $isClosed = $application['UF_STATUS'] === Applications::STATUS_CLOSED;
-                                    $needAmount = (float)$application['UF_SUM_NEED'];
+                    $isClosed = $application['UF_STATUS'] === Applications::STATUS_CLOSED;
+                                    $needAmount = (float) $application['UF_SUM_NEED'];
                                     $progressMax = max(1, $needAmount);
-                                    $collected = (float)$application['UF_SUM_COLLECTED'];
+                                    $collected = (float) $application['UF_SUM_COLLECTED'];
                                     $historyText = $applicationButtonTexts[Applications::STATUS_HISTORY] ?? 'Узнать историю';
                                     $helpText = $applicationButtonTexts[Applications::STATUS_ACTIVE] ?? 'Помочь сейчас';
                                     $closedText = $applicationButtonTexts[Applications::STATUS_CLOSED] ?? 'Спасибо, сбор закрыт';
                                     ?>
-                                    <div class="application-slide swiper-slide" id="application<?= (int)$application['ID']; ?>">
+                                    <div class="application-slide swiper-slide" id="application<?php echo (int) $application['ID']; ?>">
                                         <div class="application-slide__img-wrap">
                                             <div class="application-slide__img">
-                                                <?php if (!empty($application['UF_PHOTO_SRC']['src'])): ?>
-                                                    <img src="<?= $application['UF_PHOTO_SRC']['src']; ?>"
-                                                         alt="<?= htmlspecialcharsbx($application['UF_NAME']); ?>"
-                                                         title="<?= htmlspecialcharsbx($application['UF_NAME']); ?>"/>
-                                                <?php endif; ?>
+                                                <?php if (!empty($application['UF_PHOTO_SRC']['src'])) { ?>
+                                                    <img src="<?php echo $application['UF_PHOTO_SRC']['src']; ?>"
+                                                         alt="<?php echo htmlspecialcharsbx($application['UF_NAME']); ?>"
+                                                         title="<?php echo htmlspecialcharsbx($application['UF_NAME']); ?>"/>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                         <div class="application-slide__content">
-                                            <h4 class="application-slide__title"><?= htmlspecialcharsbx($application['UF_NAME']); ?></h4>
+                                            <h4 class="application-slide__title"><?php echo htmlspecialcharsbx($application['UF_NAME']); ?></h4>
                                             <div class="application-slide__content-wrap">
-                                                <?php if (!empty($application['UF_AGE'])): ?>
-                                                    <div class="application-slide__age"><?= (int)$application['UF_AGE']; ?> лет</div>
-                                                <?php endif; ?>
-                                                <?php if (!empty($application['UF_DIRECTION'])): ?>
+                                                <?php if (!empty($application['UF_AGE'])) { ?>
+                                                    <div class="application-slide__age"><?php echo (int) $application['UF_AGE']; ?> лет</div>
+                                                <?php } ?>
+                                                <?php if (!empty($application['UF_DIRECTION'])) { ?>
                                                     <div class="application-slide__direction-wrap">
-                                                        <p class="application-slide__direction"><?= htmlspecialcharsbx($application['UF_DIRECTION']); ?></p>
+                                                        <p class="application-slide__direction"><?php echo htmlspecialcharsbx($application['UF_DIRECTION']); ?></p>
                                                     </div>
-                                                <?php endif; ?>
-                                                <?php if (!empty($application['UF_DESCRIPTION'])): ?>
+                                                <?php } ?>
+                                                <?php if (!empty($application['UF_DESCRIPTION'])) { ?>
                                                     <div class="application-slide__description">
-                                                        <p><?= $application['UF_DESCRIPTION']; ?></p>
+                                                        <p><?php echo $application['UF_DESCRIPTION']; ?></p>
                                                     </div>
-                                                <?php endif; ?>
+                                                <?php } ?>
                                             </div>
                                             <div class="application-slide__progress-wrap">
-                                            <progress value="<?= $collected; ?>" max="<?= $progressMax; ?>"></progress>
+                                            <progress value="<?php echo $collected; ?>" max="<?php echo $progressMax; ?>"></progress>
                                                 <p class="application-slide__sum">
-                                                    Собрано <span><?= Applications::formatCurrency($collected); ?></span>
-                                                    из <span><?= Applications::formatCurrency($needAmount); ?></span>
+                                                    Собрано <span><?php echo Applications::formatCurrency($collected); ?></span>
+                                                    из <span><?php echo Applications::formatCurrency($needAmount); ?></span>
                                                 </p>
                                             </div>
                                             <div class="application-slide__collect-btn">
-                                                <?php if ($isClosed): ?>
+                                                <?php if ($isClosed) { ?>
                                                     <button type="button" class="btn btn--bg-w_txt-bl_brd-bl" disabled>
-                                                        <span class="text-btn"><?= htmlspecialcharsbx($closedText); ?></span>
+                                                        <span class="text-btn"><?php echo htmlspecialcharsbx($closedText); ?></span>
                                                     </button>
-                                                <?php else: ?>
+                                                <?php } else { ?>
                                                     <a class="btn btn--bg-red_txt-w" href="#" role="button">
-                                                        <span class="text-btn"><?= htmlspecialcharsbx($helpText); ?></span>
+                                                        <span class="text-btn"><?php echo htmlspecialcharsbx($helpText); ?></span>
                                                     </a>
-                                                <?php endif; ?>
+                                                <?php } ?>
                                             </div>
                                             <div class="application-slide__link-wrap">
                                                 <a class="application-slide__link"
-                                                   href="<?= htmlspecialcharsbx($application['UF_STORY_LINK'] ?: '#'); ?>"
+                                                   href="<?php echo htmlspecialcharsbx($application['UF_STORY_LINK'] ?: '#'); ?>"
                                                    target="_blank" rel="noopener">
-                                                    <?= htmlspecialcharsbx($historyText); ?>
+                                                    <?php echo htmlspecialcharsbx($historyText); ?>
                                                 </a>
                                             </div>
-                                            <?php if ($isClosed): ?>
+                                            <?php if ($isClosed) { ?>
                                                 <div class="application-slide__closed-wrap">
                                                     <div class="application-slide__closed"></div>
                                                 </div>
-                                            <?php endif; ?>
+                                            <?php } ?>
                                         </div>
                                     </div>
-                                <?php endforeach; ?>
+                                <?php } ?>
                             </div>
                         </div>
                         <div class="applications-pagination swiper-pagination"></div>
@@ -301,13 +301,13 @@ $APPLICATION->IncludeComponent(
                             </div>
                         </div>
                     </div>
-                <?php else: ?>
+                <?php } else { ?>
                     <div class="alert alert-warning">Заполните HL-блок «Заявки соискателей».</div>
-                <?php endif; ?>
+                <?php } ?>
                 <div class="main-applications__btn">
-                    <a href="<?= htmlspecialcharsbx($applicationsButton['link'] ?: '#'); ?>"
+                    <a href="<?php echo htmlspecialcharsbx($applicationsButton['link'] ?: '#'); ?>"
                        class="btn btn--bg-w_txt-bl_i-arrow-more">
-                        <span class="text-btn"><?= htmlspecialcharsbx($applicationsButton['text']); ?></span>
+                        <span class="text-btn"><?php echo htmlspecialcharsbx($applicationsButton['text']); ?></span>
                         <svg aria-hidden="true" class="icon-symbol icon-symbol--default">
                             <use xlink:href="#i-arrow-more"/>
                         </svg>
@@ -332,9 +332,9 @@ $APPLICATION->IncludeComponent(
                         'EDIT_TEMPLATE' => '',
                     ],
                     false,
-                    ['HIDE_ICONS' => 'Y']
+                    ['HIDE_ICONS' => 'Y'],
                 );
-                ?>
+?>
             </div>
             <?php
             $APPLICATION->IncludeComponent(
@@ -346,42 +346,42 @@ $APPLICATION->IncludeComponent(
                     'EDIT_TEMPLATE' => '',
                 ],
                 false,
-                ['HIDE_ICONS' => 'Y']
+                ['HIDE_ICONS' => 'Y'],
             );
-            ?>
-            <?php if ($benefactorsIblockId): ?>
+?>
+            <?php if ($benefactorsIblockId) { ?>
                 <?php
-                $APPLICATION->IncludeComponent(
-                    'bitrix:news.list',
-                    'cds_benefactors',
-                    [
-                        'IBLOCK_TYPE' => 'cds_content',
-                        'IBLOCK_ID' => $benefactorsIblockId,
-                        'NEWS_COUNT' => '20',
-                        'SORT_BY1' => 'SORT',
-                        'SORT_ORDER1' => 'ASC',
-                        'CACHE_TYPE' => 'A',
-                        'CACHE_TIME' => '3600',
-                        'CACHE_GROUPS' => 'Y',
-                        'FIELD_CODE' => ['NAME'],
-                        'PROPERTY_CODE' => ['ICON_SYMBOL'],
-                        'SET_TITLE' => 'N',
-                        'SET_BROWSER_TITLE' => 'N',
-                        'SET_META_KEYWORDS' => 'N',
-                        'SET_META_DESCRIPTION' => 'N',
-                    ],
-                    false,
-                    ['HIDE_ICONS' => 'Y']
-                );
+    $APPLICATION->IncludeComponent(
+        'bitrix:news.list',
+        'cds_benefactors',
+        [
+            'IBLOCK_TYPE' => 'cds_content',
+            'IBLOCK_ID' => $benefactorsIblockId,
+            'NEWS_COUNT' => '20',
+            'SORT_BY1' => 'SORT',
+            'SORT_ORDER1' => 'ASC',
+            'CACHE_TYPE' => 'A',
+            'CACHE_TIME' => '3600',
+            'CACHE_GROUPS' => 'Y',
+            'FIELD_CODE' => ['NAME'],
+            'PROPERTY_CODE' => ['ICON_SYMBOL'],
+            'SET_TITLE' => 'N',
+            'SET_BROWSER_TITLE' => 'N',
+            'SET_META_KEYWORDS' => 'N',
+            'SET_META_DESCRIPTION' => 'N',
+        ],
+        false,
+        ['HIDE_ICONS' => 'Y'],
+    );
                 ?>
-            <?php else: ?>
+            <?php } else { ?>
                 <div class="alert alert-warning">Создайте инфоблок «Благотворителям».</div>
-            <?php endif; ?>
+            <?php } ?>
 
             <div class="benefactors__content-btn-box">
-                <a href="<?= htmlspecialcharsbx($benefactorsButton['link'] ?: '#'); ?>"
+                <a href="<?php echo htmlspecialcharsbx($benefactorsButton['link'] ?: '#'); ?>"
                    class="btn btn--bg-red_txt-w">
-                    <span class="text-btn"><?= htmlspecialcharsbx($benefactorsButton['text']); ?></span>
+                    <span class="text-btn"><?php echo htmlspecialcharsbx($benefactorsButton['text']); ?></span>
                 </a>
             </div>
         </div>
@@ -403,9 +403,9 @@ $APPLICATION->IncludeComponent(
                         'EDIT_TEMPLATE' => '',
                     ],
                     false,
-                    ['HIDE_ICONS' => 'Y']
+                    ['HIDE_ICONS' => 'Y'],
                 );
-                ?>
+?>
             </div>
             <?php
             $APPLICATION->IncludeComponent(
@@ -417,37 +417,37 @@ $APPLICATION->IncludeComponent(
                     'EDIT_TEMPLATE' => '',
                 ],
                 false,
-                ['HIDE_ICONS' => 'Y']
+                ['HIDE_ICONS' => 'Y'],
             );
-            ?>
-            <?php if ($partnersIblockId): ?>
+?>
+            <?php if ($partnersIblockId) { ?>
                 <?php
-                $APPLICATION->IncludeComponent(
-                    'bitrix:news.list',
-                    'cds_partners',
-                    [
-                        'IBLOCK_TYPE' => 'cds_content',
-                        'IBLOCK_ID' => $partnersIblockId,
-                        'NEWS_COUNT' => '30',
-                        'SORT_BY1' => 'SORT',
-                        'SORT_ORDER1' => 'ASC',
-                        'CACHE_TYPE' => 'A',
-                        'CACHE_TIME' => '3600',
-                        'CACHE_GROUPS' => 'Y',
-                        'FIELD_CODE' => ['NAME', 'PREVIEW_PICTURE'],
-                        'PROPERTY_CODE' => [],
-                        'SET_TITLE' => 'N',
-                        'SET_BROWSER_TITLE' => 'N',
-                        'SET_META_KEYWORDS' => 'N',
-                        'SET_META_DESCRIPTION' => 'N',
-                    ],
-                    false,
-                    ['HIDE_ICONS' => 'Y']
-                );
+    $APPLICATION->IncludeComponent(
+        'bitrix:news.list',
+        'cds_partners',
+        [
+            'IBLOCK_TYPE' => 'cds_content',
+            'IBLOCK_ID' => $partnersIblockId,
+            'NEWS_COUNT' => '30',
+            'SORT_BY1' => 'SORT',
+            'SORT_ORDER1' => 'ASC',
+            'CACHE_TYPE' => 'A',
+            'CACHE_TIME' => '3600',
+            'CACHE_GROUPS' => 'Y',
+            'FIELD_CODE' => ['NAME', 'PREVIEW_PICTURE'],
+            'PROPERTY_CODE' => [],
+            'SET_TITLE' => 'N',
+            'SET_BROWSER_TITLE' => 'N',
+            'SET_META_KEYWORDS' => 'N',
+            'SET_META_DESCRIPTION' => 'N',
+        ],
+        false,
+        ['HIDE_ICONS' => 'Y'],
+    );
                 ?>
-            <?php else: ?>
+            <?php } else { ?>
                 <div class="alert alert-warning">Создайте инфоблок «Партнёры фонда».</div>
-            <?php endif; ?>
+            <?php } ?>
         </div>
     </div>
 </section>
@@ -466,45 +466,45 @@ $APPLICATION->IncludeComponent(
                         'EDIT_TEMPLATE' => '',
                     ],
                     false,
-                    ['HIDE_ICONS' => 'Y']
+                    ['HIDE_ICONS' => 'Y'],
                 );
-                ?>
+?>
             </div>
-            <?php if ($newsIblockId): ?>
+            <?php if ($newsIblockId) { ?>
                 <?php
-                $APPLICATION->IncludeComponent(
-                    'bitrix:news.list',
-                    'cds_news',
-                    [
-                        'IBLOCK_TYPE' => 'cds_content',
-                        'IBLOCK_ID' => $newsIblockId,
-                        'NEWS_COUNT' => '3',
-                        'SORT_BY1' => 'SHOW_COUNTER',
-                        'SORT_ORDER1' => 'DESC',
-                        'SORT_BY2' => 'ACTIVE_FROM',
-                        'SORT_ORDER2' => 'DESC',
-                        'CACHE_TYPE' => 'A',
-                        'CACHE_TIME' => '3600',
-                        'CACHE_GROUPS' => 'Y',
-                        'FIELD_CODE' => ['NAME', 'PREVIEW_TEXT', 'PREVIEW_PICTURE', 'ACTIVE_FROM', 'DETAIL_PAGE_URL'],
-                        'PROPERTY_CODE' => ['EXTERNAL_LINK'],
-                        'SET_TITLE' => 'N',
-                        'SET_BROWSER_TITLE' => 'N',
-                        'SET_META_KEYWORDS' => 'N',
-                        'SET_META_DESCRIPTION' => 'N',
-                    ],
-                    false,
-                    ['HIDE_ICONS' => 'Y']
-                );
+$APPLICATION->IncludeComponent(
+    'bitrix:news.list',
+    'cds_news',
+    [
+        'IBLOCK_TYPE' => 'cds_content',
+        'IBLOCK_ID' => $newsIblockId,
+        'NEWS_COUNT' => '3',
+        'SORT_BY1' => 'SHOW_COUNTER',
+        'SORT_ORDER1' => 'DESC',
+        'SORT_BY2' => 'ACTIVE_FROM',
+        'SORT_ORDER2' => 'DESC',
+        'CACHE_TYPE' => 'A',
+        'CACHE_TIME' => '3600',
+        'CACHE_GROUPS' => 'Y',
+        'FIELD_CODE' => ['NAME', 'PREVIEW_TEXT', 'PREVIEW_PICTURE', 'ACTIVE_FROM', 'DETAIL_PAGE_URL'],
+        'PROPERTY_CODE' => ['EXTERNAL_LINK'],
+        'SET_TITLE' => 'N',
+        'SET_BROWSER_TITLE' => 'N',
+        'SET_META_KEYWORDS' => 'N',
+        'SET_META_DESCRIPTION' => 'N',
+    ],
+    false,
+    ['HIDE_ICONS' => 'Y'],
+);
                 ?>
-            <?php else: ?>
+            <?php } else { ?>
                 <div class="alert alert-warning">Создайте инфоблок «Новости».</div>
-            <?php endif; ?>
+            <?php } ?>
 
             <div class="news-section__btn">
-                <a href="<?= htmlspecialcharsbx($newsButton['link'] ?: '#'); ?>"
+                <a href="<?php echo htmlspecialcharsbx($newsButton['link'] ?: '#'); ?>"
                    class="btn btn--bg-w_txt-bl_i-arrow-more">
-                    <span class="text-btn"><?= htmlspecialcharsbx($newsButton['text']); ?></span>
+                    <span class="text-btn"><?php echo htmlspecialcharsbx($newsButton['text']); ?></span>
                     <svg aria-hidden="true" class="icon-symbol icon-symbol--default">
                         <use xlink:href="#i-arrow-more"/>
                     </svg>

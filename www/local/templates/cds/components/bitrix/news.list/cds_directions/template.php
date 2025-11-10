@@ -1,6 +1,6 @@
 <?php
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
-    die();
+    exit;
 }
 
 if (empty($arResult['ITEMS'])) {
@@ -10,34 +10,34 @@ if (empty($arResult['ITEMS'])) {
 <div class="w-full slider-wrap">
     <div class="swiper j-main-directions__slider">
         <div class="swiper-wrapper main-directions__slides">
-            <?php foreach ($arResult['ITEMS'] as $item):
+            <?php foreach ($arResult['ITEMS'] as $item) {
                 $picture = null;
                 if (!empty($item['PREVIEW_PICTURE'])) {
                     $picture = CFile::ResizeImageGet(
                         $item['PREVIEW_PICTURE'],
                         ['width' => 640, 'height' => 480],
                         BX_RESIZE_IMAGE_PROPORTIONAL_ALT,
-                        true
+                        true,
                     );
                 }
                 $slideId = 'directions' . $item['ID'];
                 $name = htmlspecialcharsbx($item['NAME']);
                 $desc = $item['PREVIEW_TEXT'];
-            ?>
-                <div class="swiper-slide" id="<?= $slideId ?>">
+                ?>
+                <div class="swiper-slide" id="<?php echo $slideId; ?>">
                     <div class="swiper-slide__content">
-                        <h4><?= $name ?></h4>
-                        <?php if ($desc): ?>
-                            <div><?= $desc ?></div>
-                        <?php endif; ?>
+                        <h4><?php echo $name; ?></h4>
+                        <?php if ($desc) { ?>
+                            <div><?php echo $desc; ?></div>
+                        <?php } ?>
                     </div>
-                    <?php if ($picture): ?>
+                    <?php if ($picture) { ?>
                         <div class="main-directions__slides-img">
-                            <img src="<?= $picture['src'] ?>" alt="<?= $name ?>" title="<?= $name ?>"/>
+                            <img src="<?php echo $picture['src']; ?>" alt="<?php echo $name; ?>" title="<?php echo $name; ?>"/>
                         </div>
-                    <?php endif; ?>
+                    <?php } ?>
                 </div>
-            <?php endforeach; ?>
+            <?php } ?>
         </div>
     </div>
     <div class="direction-pagination swiper-pagination"></div>

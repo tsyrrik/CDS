@@ -1,8 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
-use Bitrix\Main\Loader;
 use Bitrix\Highloadblock\HighloadBlockTable;
+use Bitrix\Main\Loader;
 
 $_SERVER['DOCUMENT_ROOT'] = realpath(__DIR__ . '/../..');
 $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
@@ -18,7 +19,7 @@ ini_set('display_errors', '1');
 try {
     runSetup();
     echo 'Настройка завершена' . PHP_EOL;
-} catch (\Throwable $e) {
+} catch (Throwable $e) {
     fwrite(STDERR, 'Ошибка: ' . $e->getMessage() . PHP_EOL);
     exit(1);
 }
@@ -26,11 +27,11 @@ try {
 function runSetup(): void
 {
     if (!Loader::includeModule('iblock')) {
-        throw new \RuntimeException('Модуль iblock недоступен');
+        throw new RuntimeException('Модуль iblock недоступен');
     }
 
     if (!Loader::includeModule('highloadblock')) {
-        throw new \RuntimeException('Модуль highloadblock недоступен');
+        throw new RuntimeException('Модуль highloadblock недоступен');
     }
 
     $siteId = getSiteId();
@@ -235,6 +236,7 @@ function runSetup(): void
 function getSiteId(): string
 {
     $site = CSite::GetList($by = 'sort', $order = 'asc')->Fetch();
+
     return $site['LID'] ?? 's1';
 }
 
@@ -253,7 +255,7 @@ function ensureIblock(array $fields): int
 {
     $existing = CIBlock::GetList([], ['=CODE' => $fields['CODE']])->Fetch();
     if ($existing) {
-        return (int)$existing['ID'];
+        return (int) $existing['ID'];
     }
 
     $ib = new CIBlock();
@@ -273,10 +275,10 @@ function ensureIblock(array $fields): int
     $iblockId = $ib->Add(array_merge($default, $fields));
 
     if (!$iblockId) {
-        throw new \RuntimeException('Ошибка создания инфоблока ' . $fields['CODE'] . ': ' . $ib->LAST_ERROR);
+        throw new RuntimeException('Ошибка создания инфоблока ' . $fields['CODE'] . ': ' . $ib->LAST_ERROR);
     }
 
-    return (int)$iblockId;
+    return (int) $iblockId;
 }
 
 function ensureProperty(int $iblockId, array $fields): void
@@ -301,7 +303,7 @@ function ensureHighloadBlock(string $name, string $tableName): int
     ])->fetch();
 
     if ($existing) {
-        return (int)$existing['ID'];
+        return (int) $existing['ID'];
     }
 
     $result = HighloadBlockTable::add([
@@ -310,10 +312,10 @@ function ensureHighloadBlock(string $name, string $tableName): int
     ]);
 
     if (!$result->isSuccess()) {
-        throw new \RuntimeException('Ошибка создания HL-блока ' . $name . ': ' . implode(', ', $result->getErrorMessages()));
+        throw new RuntimeException('Ошибка создания HL-блока ' . $name . ': ' . implode(', ', $result->getErrorMessages()));
     }
 
-    return (int)$result->getId();
+    return (int) $result->getId();
 }
 
 function ensureHlFields(int $hlId, array $fields): void
@@ -324,7 +326,7 @@ function ensureHlFields(int $hlId, array $fields): void
     foreach ($fields as $field) {
         $fieldExists = CUserTypeEntity::GetList(
             [],
-            ['ENTITY_ID' => $entityId, 'FIELD_NAME' => $field['FIELD_NAME']]
+            ['ENTITY_ID' => $entityId, 'FIELD_NAME' => $field['FIELD_NAME']],
         )->Fetch();
 
         if ($fieldExists) {

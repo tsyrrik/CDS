@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Cds\Helpers;
 
 use Bitrix\Main\Loader;
@@ -23,7 +26,7 @@ class IblockHelper
             return null;
         }
 
-        self::$cache[$code] = (int)$iblock['ID'];
+        self::$cache[$code] = (int) $iblock['ID'];
 
         return self::$cache[$code];
     }

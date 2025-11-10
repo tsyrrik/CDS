@@ -1,11 +1,11 @@
 <?php
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
-    die();
+    exit;
 }
 ?>
 <?php
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
-    die();
+    exit;
 }
 
 require __DIR__ . '/include/footer-content.php';

@@ -1,9 +1,12 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Cds;
 
-use Bitrix\Main\Loader;
-use Bitrix\Main\Data\Cache;
 use Bitrix\Highloadblock\HighloadBlockTable;
+use Bitrix\Main\Data\Cache;
+use Bitrix\Main\Loader;
 
 class Options
 {
@@ -16,6 +19,7 @@ class Options
     public static function get(string $code, ?string $default = null): ?string
     {
         $all = self::getAll();
+
         return $all[$code] ?? $default;
     }
 
@@ -44,6 +48,7 @@ class Options
         $cacheKey = self::TABLE_NAME;
         if ($cache->initCache(self::CACHE_TTL, $cacheKey, self::CACHE_DIR)) {
             self::$options = $cache->getVars();
+
             return self::$options;
         }
 

@@ -1,8 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
-use Bitrix\Main\Loader;
 use Bitrix\Highloadblock\HighloadBlockTable;
+use Bitrix\Main\Loader;
 
 $_SERVER['DOCUMENT_ROOT'] = realpath(__DIR__ . '/../..');
 $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
@@ -28,11 +29,11 @@ try {
 function runSeeder(): void
 {
     if (!Loader::includeModule('iblock')) {
-        throw new \RuntimeException('Модуль iblock недоступен');
+        throw new RuntimeException('Модуль iblock недоступен');
     }
 
     if (!Loader::includeModule('highloadblock')) {
-        throw new \RuntimeException('Модуль highloadblock недоступен');
+        throw new RuntimeException('Модуль highloadblock недоступен');
     }
 
     seedDirections();
@@ -48,6 +49,7 @@ function seedDirections(): void
     $iblockId = getIblockId('cds_directions');
     if (!$iblockId) {
         echo "Инфоблок cds_directions не найден\n";
+
         return;
     }
 
@@ -91,6 +93,7 @@ function seedTasks(): void
     $iblockId = getIblockId('cds_tasks');
     if (!$iblockId) {
         echo "Инфоблок cds_tasks не найден\n";
+
         return;
     }
 
@@ -131,6 +134,7 @@ function seedBenefactors(): void
     $iblockId = getIblockId('cds_benefactors');
     if (!$iblockId) {
         echo "Инфоблок cds_benefactors не найден\n";
+
         return;
     }
 
@@ -155,6 +159,7 @@ function seedPartners(): void
     $iblockId = getIblockId('cds_partners');
     if (!$iblockId) {
         echo "Инфоблок cds_partners не найден\n";
+
         return;
     }
 
@@ -191,6 +196,7 @@ function seedNews(): void
     $iblockId = getIblockId('cds_news');
     if (!$iblockId) {
         echo "Инфоблок cds_news не найден\n";
+
         return;
     }
 
@@ -232,6 +238,7 @@ function seedApplications(): void
 
     if (!$hlBlock) {
         echo "HL-блок cds_applications не найден\n";
+
         return;
     }
 
@@ -286,7 +293,7 @@ function seedApplications(): void
         }
         $result = $dataClass::add($item);
         if (!$result->isSuccess()) {
-            throw new \RuntimeException('Ошибка добавления заявки: ' . implode(', ', $result->getErrorMessages()));
+            throw new RuntimeException('Ошибка добавления заявки: ' . implode(', ', $result->getErrorMessages()));
         }
     }
 }
@@ -295,11 +302,13 @@ function shouldSeedIblock(int $iblockId, string $label): bool
 {
     if (CDS_FORCE_RESET) {
         clearIblock($iblockId);
+
         return true;
     }
 
     if (iblockHasElements($iblockId)) {
         echo $label . " уже заполнен, пропускаю\n";
+
         return false;
     }
 
@@ -309,6 +318,7 @@ function shouldSeedIblock(int $iblockId, string $label): bool
 function clearIblock(int $iblockId): void
 {
     $res = CIBlockElement::GetList([], ['IBLOCK_ID' => $iblockId], false, false, ['ID']);
+
     while ($row = $res->Fetch()) {
         CIBlockElement::Delete($row['ID']);
     }
@@ -318,12 +328,14 @@ function shouldSeedApplications(string $dataClass): bool
 {
     if (CDS_FORCE_RESET) {
         clearHlBlock($dataClass);
+
         return true;
     }
 
     $existing = $dataClass::getList(['select' => ['ID'], 'limit' => 1])->fetch();
     if ($existing) {
         echo "HL «Заявки» уже заполнен, пропускаю\n";
+
         return false;
     }
 
@@ -333,6 +345,7 @@ function shouldSeedApplications(string $dataClass): bool
 function clearHlBlock(string $dataClass): void
 {
     $rows = $dataClass::getList(['select' => ['ID']]);
+
     while ($row = $rows->fetch()) {
         $dataClass::delete($row['ID']);
     }
@@ -375,20 +388,22 @@ function addElement(int $iblockId, array $fields): void
 
     $id = $el->Add($elementFields);
     if (!$id) {
-        throw new \RuntimeException('Ошибка добавления элемента: ' . $el->LAST_ERROR);
+        throw new RuntimeException('Ошибка добавления элемента: ' . $el->LAST_ERROR);
     }
 }
 
 function iblockHasElements(int $iblockId): bool
 {
     $res = CIBlockElement::GetList([], ['IBLOCK_ID' => $iblockId], false, ['nTopCount' => 1], ['ID']);
-    return (bool)$res->Fetch();
+
+    return (bool) $res->Fetch();
 }
 
 function getIblockId(string $code): ?int
 {
     $iblock = CIBlock::GetList([], ['=CODE' => $code])->Fetch();
-    return $iblock ? (int)$iblock['ID'] : null;
+
+    return $iblock ? (int) $iblock['ID'] : null;
 }
 
 function fileArray(string $relativePath): ?array
@@ -396,6 +411,7 @@ function fileArray(string $relativePath): ?array
     $absolute = $_SERVER['DOCUMENT_ROOT'] . '/local/templates/cds/' . ltrim($relativePath, '/');
     if (!is_file($absolute)) {
         echo "Файл не найден: {$absolute}\n";
+
         return null;
     }
 
